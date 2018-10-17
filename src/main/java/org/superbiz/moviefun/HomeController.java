@@ -1,6 +1,7 @@
 package org.superbiz.moviefun;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.support.TransactionOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.superbiz.moviefun.albums.Album;
 import org.superbiz.moviefun.albums.AlbumFixtures;
@@ -18,12 +19,19 @@ public class HomeController {
     private final AlbumsBean albumsBean;
     private final MovieFixtures movieFixtures;
     private final AlbumFixtures albumFixtures;
+    private final TransactionOperations moviesTransactionOperations;
+    private final TransactionOperations albumsTransactionOperations;
 
-    public HomeController(MoviesBean moviesBean, AlbumsBean albumsBean, MovieFixtures movieFixtures, AlbumFixtures albumFixtures) {
+    public HomeController(MoviesBean moviesBean, AlbumsBean albumsBean,
+                          MovieFixtures movieFixtures, AlbumFixtures albumFixtures,
+                          TransactionOperations moviesTransactionOperations,
+                          TransactionOperations albumsTransactionOperations) {
         this.moviesBean = moviesBean;
         this.albumsBean = albumsBean;
         this.movieFixtures = movieFixtures;
         this.albumFixtures = albumFixtures;
+        this.moviesTransactionOperations = moviesTransactionOperations;
+        this.albumsTransactionOperations = albumsTransactionOperations;
     }
 
     @GetMapping("/")
